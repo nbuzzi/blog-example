@@ -10,10 +10,12 @@ const portNumber = process.env.PORT_NUMBER || '3000';
 const app = `http://localhost:${portNumber}`;
 
 it('Main page content', function (done) {
-    request(app, (error, response, body) => {
-        expect(body).to.not.be.null;
-        done();
-    });
+    chai.request(app)
+        .get('/')
+        .end((error, response) => {
+            expect(response).to.not.be.null;
+            done();
+        });
 });
 
 it('Should login as administrator', function (done) {
