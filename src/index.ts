@@ -22,6 +22,7 @@ app.use('/scripts', express.static('src/scripts'));
 // Login controller.
 app.get('/', loginController.index);
 app.get('/getLoggedUser', loginController.getCurrentUser);
+app.get('/getAllLoggedUsers', loginController.getLoggedUsers);
 app.get('/signinAsGuest', loginController.signinAsGuest);
 app.post('/signin', loginController.signin);
 

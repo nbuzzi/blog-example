@@ -3,10 +3,10 @@ import { User } from './models/user';
 
 import loginDBInstance from '../static/loginDB';
 
-export const index = (req: Request, res: Response) => {
-    res.sendFile(`${__dirname}/views/index.html`);
-};
+// GET View endpoint.
+export const index = (req: Request, res: Response) => res.sendFile(`${__dirname}/views/index.html`);
 
+// API to perform the login.
 export const signin = (req: Request, res: Response) => {
     const body: User = req.body;
 
@@ -27,6 +27,7 @@ export const signin = (req: Request, res: Response) => {
     res.send({ status: 500, message: 'Error in the request, email and password are required parameters.' });
 };
 
+// Signin as a gust.
 export const signinAsGuest = (req: Request, res: Response) => {
     const userIndex: number = loginDBInstance.users
         .findIndex((m: User) => !m.isAdmin);
@@ -36,10 +37,15 @@ export const signinAsGuest = (req: Request, res: Response) => {
     res.redirect('/posts');
 };
 
+// API to retrieve the current logged user.
 export const getCurrentUser = (req: Request, res: Response) => res.json(loginDBInstance.currentUser);
+
+// API to retrieve all the logged users.
+export const getLoggedUsers = (req: Request, res: Response) => res.json(loginDBInstance.getLoggedUsers);
 
 module.exports = {
     getCurrentUser,
+    getLoggedUsers,
     index,
     signin,
     signinAsGuest,
