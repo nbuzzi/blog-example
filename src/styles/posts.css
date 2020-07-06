@@ -1,0 +1,25 @@
+.user-info {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
+
+.post-card {
+    width: 75%;
+    margin-bottom: 2%;
+    margin-top: 2%;
+    margin-left: 10%;
+    text-align: center;
+}
+
+.b-loaded {
+    width: 100% !important;
+}
+
+.create-post {
+    margin-left: -4%;
+}
+
+.custom-padding {
+    padding: 16px;
+}

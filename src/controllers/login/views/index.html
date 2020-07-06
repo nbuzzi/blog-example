@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogging</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <!-- Swal alerts -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.15.2/dist/sweetalert2.all.min.js"></script>
+
+    <!-- Including jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Custom css styles -->
+    <link rel="stylesheet" href="styles/home.css" />
+
+    <script type="text/javascript">
+        function enterAsGuest() {
+            window.location.href = `/signinAsGuest`;
+        }
+
+        function signin() {
+            const emailElement = document.querySelector(`#inputEmail`);
+            const passwordElement = document.querySelector(`#inputPassword`);
+
+            if (emailElement && !emailElement.value || passwordElement && !passwordElement.value) {
+                Swal.fire({
+                    title: 'Error!',
+                    text: `You need to fill the ${emailElement.value ? 'Password' : 'Email'} field before to continue`,
+                    icon: 'error',
+                    confirmButtonText: 'Cool'
+                });
+
+                return;
+            }
+
+            $.ajax({
+                    url: '/signin',
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    data: JSON.stringify({
+                        email: emailElement.value,
+                        password: passwordElement.value
+                    })
+                })
+                .then((data) => {
+                    if (data && data.logged) {
+                        window.location.href = '/posts';
+                        return;
+                    }
+
+                    Swal.fire({
+                        title: 'Error!',
+                        text: `Invalid user or password.`,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }).catch((err) => {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: err.data.message,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                });
+        }
+    </script>
+</head>
+
+<body>
+    <form class="form-signin">
+        <img class="mb-4 custom-margin-left"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Blogger_icon.svg/768px-Blogger_icon.svg.png"
+            alt="" width="150" height="150">
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+
+        <button class="btn btn-lg btn-primary btn-block" type="button" onclick="signin()">Sign in</button>
+        <button class="btn btn-lg btn-primary btn-block" type="button" onclick="enterAsGuest()">Enter as guest</button>
+    </form>
+</body>
+
+</html>
