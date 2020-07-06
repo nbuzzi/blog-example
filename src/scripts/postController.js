@@ -2,7 +2,7 @@
 
 const app = angular.module('Posts', ['ngSanitize', 'ngQuill']);
 
-app.config(['ngQuillConfigProvider', function (ngQuillConfigProvider) {
+app.config(['ngQuillConfigProvider', (ngQuillConfigProvider) => {
     ngQuillConfigProvider.set(null, null, 'custom placeholder')
 }]);
 

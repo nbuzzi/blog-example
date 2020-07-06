@@ -29,6 +29,7 @@ app.post('/signin', loginController.signin);
 // Post controller.
 app.get('/posts', postsController.index);
 app.get('/posts/view', postsController.viewById);
+app.post('/posts/addComment', postsController.addComment);
 app.delete('/posts/delete', postsController.deletePost);
 app.get('/posts/getById', postsController.openById);
 app.get('/posts/get', postsController.getAll);

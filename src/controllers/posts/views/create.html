@@ -77,15 +77,9 @@
         </div>
 
         <ng-quill-editor bounds="self" ng-model="content" placeholder="'override default placeholder'"
-            on-editor-created="editorCreated(editor)" on-content-changed="contentChanged(
-          editor,
-          html,
-          text,
-          content,
-          delta,
-          oldDelta,
-          source
-        )" on-selection-changed="selectionChanged(editor, range, oldRange, source)" on-focus="onFocus(editor, source)"
+            on-editor-created="editorCreated(editor)"
+            on-content-changed="contentChanged(editor, html, text, content, delta, oldDelta, source)"
+            on-selection-changed="selectionChanged(editor, range, oldRange, source)" on-focus="onFocus(editor, source)"
             on-blur="onBlur(editor, source)" preserve-whitespace="true" track-changes="all"></ng-quill-editor>
 
         <div class="row mb-4 mt-4">

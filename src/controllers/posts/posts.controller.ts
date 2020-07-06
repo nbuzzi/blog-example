@@ -5,6 +5,7 @@ import { Post } from './models/post';
 
 import loginDBInstance from '../static/loginDB';
 import postDBInstance from '../static/postDB';
+import { uuid } from 'uuidv4';
 
 const getCurrentUser = (): User | undefined => loginDBInstance && loginDBInstance.currentUser;
 
@@ -45,6 +46,19 @@ export const deletePost = (req: Request, res: Response) => {
     // User not authenticated.
     if (isUserLogged(res) && req.query && req.query.postId) {
         postDBInstance.remove(req.query.postId as string);
+
+        res.json({ status: 200, message: 'OK ' });
+    }
+};
+
+export const addComment = (req: Request, res: Response) => {
+    // User not authenticated.
+    if (isUserLogged(res) && req.body && req.body.postId) {
+        postDBInstance.addComment(req.body.postId, {
+            author: req.body.author,
+            id: uuid(),
+            text: req.body.text,
+        });
 
         res.json({ status: 200, message: 'OK ' });
     }

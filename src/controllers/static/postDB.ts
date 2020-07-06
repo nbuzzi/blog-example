@@ -68,7 +68,7 @@ export class PostDB extends GenericDatabase<Post> {
 
     public addComment(postId: string, comment: Comment): Comment | null {
         const existingPostIndex: number = this.entities.findIndex((m: Post) => m.id === postId);
-        if (existingPostIndex > 0) {
+        if (existingPostIndex >= 0) {
             comment.id = uuid();
             this.entities[existingPostIndex].comments.push(comment);
 
