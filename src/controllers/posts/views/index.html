@@ -28,6 +28,9 @@
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.7/angular-sanitize.min.js">
     </script>
 
+    <!-- Swal alerts -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.15.2/dist/sweetalert2.all.min.js"></script>
+
     <!-- Custom css styles -->
     <link rel="stylesheet" href="/styles/posts.css" />
 
@@ -59,7 +62,7 @@
     </nav>
 
     <div class="container">
-        <div ng-repeat="post in posts" class="card post-card">
+        <div ng-repeat="post in posts" class="card post-card" ng-if="posts && posts.length">
             <img class="card-img-top" src="{{ post.previewImageUrl }}" alt="Card image">
             <div class="card-body">
                 <h4 class="card-title">{{ post.name }}</h4>
@@ -67,12 +70,17 @@
                     <div class="col-12 mb-2">
                         <button class="btn btn-primary" ng-click="openPost(post.id)">Open post</button>
                     </div>
-                    <div class="col-12">
+                    <div class="col-12 mb-2">
                         <a>Author: {{ post.author }}</a>
+                    </div>
+                    <div class="col-12 mt-2" ng-if="canDeletePost(post)">
+                        <button class="btn btn-danger btn-sm" ng-click="deletePost(post.id)">Delete</button>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div ng-if="!posts || !posts.length" class="jumbotron text-center mb-3 mt-3">There're no posts to show.</div>
 
         <div class="text-center mb-4 mt-4 create-post">
             <button class="btn btn-primary" onclick="createNewPost()">Create a new post!</button>

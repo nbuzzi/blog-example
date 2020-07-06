@@ -40,6 +40,16 @@ export const createView = (req: Request, res: Response) => {
     }
 };
 
+// We're using deletePost instead of delete cause the warning of TSLINT.
+export const deletePost = (req: Request, res: Response) => {
+    // User not authenticated.
+    if (isUserLogged(res) && req.query && req.query.postId) {
+        postDBInstance.remove(req.query.postId as string);
+
+        res.json({ status: 200, message: 'OK ' });
+    }
+};
+
 export const getAll = (req: Request, res: Response) => {
     // User not authenticated.
     if (isUserLogged(res)) {
@@ -99,14 +109,4 @@ export const create = (req: Request, res: Response) => {
             status: 500,
         });
     }
-};
-
-module.exports = {
-    create,
-    createView,
-    getAll,
-    getCommentsByPostId,
-    index,
-    openById,
-    viewById,
 };

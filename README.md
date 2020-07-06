@@ -21,7 +21,7 @@ Clone the repo and then follow the next steps:
 2. Run `npm run build`
 3. Run `npm start`
 
-## Running unit tests
+## :exlamation: Running unit tests
 
 1. Run `npm run start:dev`
 2. Run `npm run test`

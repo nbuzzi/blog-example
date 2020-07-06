@@ -45,6 +45,31 @@ app.controller(`PostController`, ['$scope', '$http', '$sanitize', '$timeout', ($
         });
     };
 
+    $scope.canDeletePost = (post) =>
+        $scope.currentUser && $scope.currentUser.isAdmin || post.author && post.author.toLowerCase() === 'Guest';
+
+    $scope.deletePost = (postId) => {
+        $http.delete(`/posts/delete?postId=${postId}`)
+            .then((response) => {
+                $scope.posts = $scope.posts.filter((m) => m.id !== postId);
+
+                Swal.fire({
+                    title: 'Success',
+                    text: `The post was successfully deleted.`,
+                    icon: 'success',
+                    confirmButtonText: 'Cool'
+                });
+            })
+            .catch((err) => {
+                Swal.fire({
+                    title: 'Error!',
+                    text: `Something went wrong, please try again later.`,
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            });
+    }
+
     $scope.editorCreated = (editor) => {
         console.log(editor);
     }
